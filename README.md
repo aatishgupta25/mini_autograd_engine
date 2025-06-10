@@ -68,9 +68,9 @@ Calling `.backward()` on the output `Value`:
 
 ---
 
-### 4. (Optionally) Compares to PyTorch
+### 4. Comparison to PyTorch
 
-Your code includes a function to compute the same expression using PyTorch and prints both sets of gradients for comparison, validating correctness.
+It includes a function to compute the same expression using PyTorch and prints both sets of gradients for comparison, validating correctness.
 
 ---
 
@@ -103,9 +103,11 @@ This will:
 
 ## File Overview
 
+```text
 mini_autograd_engine/
-├── engine/engine.py # The full autograd engine
-├── visualizations/ # .dot and .svg files for graph views
-├── tests/tests.py # Gradient validation tests
+├── engine/engine.py           # The full autograd engine
+├── visualizations/            # .dot and .svg files for graph views
+├── tests/tests.py             # Gradient validation tests
 ├── requirements.txt
 └── README.md
+```
