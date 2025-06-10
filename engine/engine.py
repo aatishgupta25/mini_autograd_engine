@@ -59,23 +59,23 @@ class Value:
 
         return out
     
-    # def __relu__(self):
-    #     out = Value(np.maximum(0, self.data), (self,), 'relu')
+    def __relu__(self):
+        out = Value(np.maximum(0, self.data), (self,), 'relu')
 
-    #     def _backward():
-    #         self.grad += (out.data > 0) * out.grad
-    #     out._backward = _backward
+        def _backward():
+            self.grad += (out.data > 0) * out.grad
+        out._backward = _backward
 
-    #     return out
+        return out
     
-    # def __sigmoid__(self):
-    #     out = Value(1 / (1 + np.exp(-self.data)), (self,), 'sigmoid')
+    def __sigmoid__(self):
+        out = Value(1 / (1 + np.exp(-self.data)), (self,), 'sigmoid')
 
-    #     def _backward():
-    #         self.grad += out.data * (1 - out.data) * out.grad
-    #     out._backward = _backward
+        def _backward():
+            self.grad += out.data * (1 - out.data) * out.grad
+        out._backward = _backward
 
-    #     return out
+        return out
     
     def backward(self):
 
@@ -126,6 +126,29 @@ class Value:
     def __repr__(self):
         return f"Value(data={self.data}, grad={self.grad})"
     
+def with_pytorch():
+
+    import torch
+
+    x = torch.tensor(1.0, requires_grad=True)
+    y = torch.tensor(2.0, requires_grad=True)
+    z = torch.tensor(3.0, requires_grad=True)
+
+    # Operations
+    a = x * 2
+    b = y + z
+    c = a - b
+    d = c ** 2
+    e = d / 3
+    f = torch.tanh(e)
+
+    # Backward pass
+    f.backward()
+
+    print("From PyTorch API: x.grad =", x.grad.item())
+    print("From PyTorch API: y.grad =", y.grad.item())
+    print("From PyTorch API: z.grad =", z.grad.item())
+
 if __name__ == "__main__":
     from make_graph_for_viz import draw_dot # Putting this import here to avoid circular imports
     
@@ -146,3 +169,9 @@ if __name__ == "__main__":
     f.backward()
 
     draw_dot(f, filename='graph_after_backprop')
+
+    print("From our engine: x.grad =", x.grad)
+    print("From our engine: y.grad =", y.grad)
+    print("From our engine: z.grad =", z.grad)
+
+    with_pytorch()
