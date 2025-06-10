@@ -59,7 +59,7 @@ class Value:
 
         return out
     
-    def __relu__(self):
+    def relu(self):
         out = Value(np.maximum(0, self.data), (self,), 'relu')
 
         def _backward():
@@ -68,7 +68,7 @@ class Value:
 
         return out
     
-    def __sigmoid__(self):
+    def sigmoid(self):
         out = Value(1 / (1 + np.exp(-self.data)), (self,), 'sigmoid')
 
         def _backward():
