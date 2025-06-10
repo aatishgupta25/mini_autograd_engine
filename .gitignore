@@ -1,6 +1,8 @@
-# Ignore Python cache
-__pycache__/
-*.py[cod]
+# Ignore all __pycache__ directories anywhere in the repo
+**/__pycache__/
 
-# Ignore virtual environment
+# Ignore all .pyc, .pyo, .pyd files anywhere
+**/*.py[cod]
+
+# Ignore virtual environment (in root)
 .venv/
