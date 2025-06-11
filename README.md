@@ -1,12 +1,12 @@
 # mini_autograd_engine
 
-A simple, self-contained implementation of reverse-mode automatic differentiation (autograd), modeled after PyTorch’s `.backward()` system — but built entirely from scratch in under 200 lines of pure Python + NumPy.
+A simple, self-contained implementation of reverse-mode automatic differentiation (autograd), modeled after PyTorch’s `.backward()` system - but built entirely from scratch in under 250 lines of pure Python + NumPy.
 
 ---
 
 ## What This Is
 
-This project builds a **computation graph–based autograd engine** using a custom `Value` class. It performs automatic differentiation of scalar expressions by tracking operations in a graph and computing gradients via the chain rule — just like deep learning frameworks such as PyTorch.
+This project builds a **computation graph–based autograd engine** using a custom `Value` class. It performs automatic differentiation of scalar expressions by tracking operations in a graph and computing gradients via the chain rule - just like deep learning frameworks such as PyTorch.
 
 It also includes:
 
@@ -20,14 +20,12 @@ It also includes:
 
 Most people use `.backward()` in PyTorch without understanding how it works. This project **builds that functionality from scratch**, helping demystify:
 
-* How frameworks compute gradients
 * How operation graphs are constructed dynamically
 * How the chain rule is applied to propagate gradients backward
 
 It's useful for:
 
 * Learning backpropagation
-* Showcasing deep technical skills to recruiters
 * Building mental models of how neural networks learn
 
 ---
@@ -78,6 +76,19 @@ It includes a function to compute the same expression using PyTorch and prints b
 
 The engine can output `.dot` files visualizing the computation graph before and after backpropagation, which are rendered to `.svg` using Graphviz.
 
+---
+
+### 6. MLP Modules & Demo: Binary Classification with SVM-style Loss
+
+Beyond the core autograd engine, this project includes a fully functional mini neural network stack with:
+
+- **`Neuron`** — a single perceptron with optional ReLU activation  
+- **`Layer`** — a dense layer of neurons  
+- **`MLP`** — a multi-layer perceptron built by stacking layers
+
+These classes use the custom `Value` type to support automatic differentiation and training with gradient descent — no PyTorch or TensorFlow involved.
+In [`demo.ipynb`](demo.ipynb), we train an `MLP` with architecture `2 → 16 → 16 → 1` on a binary classification task using the `make_moons` dataset.
+
 ## Installation & Setup
 
 ```
@@ -103,11 +114,16 @@ This will:
 
 ## File Overview
 
-```text
+```
 mini_autograd_engine/
-├── engine/engine.py           # The full autograd engine
-├── visualizations/            # .dot and .svg files for graph views
-├── tests/tests.py             # Gradient validation tests
-├── requirements.txt
-└── README.md
+├── engine/
+│   ├── engine.py             # Autograd Value class
+│   ├── modules.py            # Neuron, Layer, MLP classes
+├── tests/
+│   └── tests.py              # Unit tests for Value class
+├── visualizations/           # .svg files for computation graphs
+├── demo.ipynb                # MLP demo on 2D classification
+├── make_graph_for_viz.py # Graphviz visualizer
+├── README.md
+└── requirements.txt
 ```

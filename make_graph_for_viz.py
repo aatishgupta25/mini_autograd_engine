@@ -1,5 +1,4 @@
 from graphviz import Digraph
-from engine.engine import Value
 
 def trace(root):
     nodes, edges = set(), set()
