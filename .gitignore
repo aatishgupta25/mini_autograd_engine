@@ -6,3 +6,5 @@
 
 # Ignore virtual environment (in root)
 .venv/
+
+.pytest_cache

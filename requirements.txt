@@ -3,3 +3,4 @@ numpy>=2.3.0
 torch>=2.7.1
 matplotlib>=3.10.3
 scikit-learn>=1.7.0
+pytest>=8.4.0
